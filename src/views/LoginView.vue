@@ -1,10 +1,10 @@
 <template>
   <div class="containerlogin relative flex items-start h-screen">
     <!-- Capa de color sobre la imagen de fondo -->
-    <div class="overlay absolute inset-0 bg-[#fc844c] opacity-50"></div>
+    <div class="overlay absolute inset-0 bg-[#196aee] opacity-50"></div>
 
     <!-- Formulario alineado a la izquierda y ocupando toda la altura -->
-    <div class="form-wrapper relative w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full p-4 bg-[#130f23] text-white shadow-lg">
+    <div class="form-wrapper relative w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full p-4 bg-[#ffffff] text-white shadow-lg">
       <div class="formLogin h-full flex flex-col justify-center">
         <FormAuthVue @validate-login="onValidateLogin" />
       </div>
@@ -81,8 +81,10 @@ export default {
   background-image: url('@/assets/login/background.jpg');
   background-size: cover;
   background-position: center;
+
   width: 100%;
-  height: 100vh;
-  position: relative;
+  height: 100%;
+  position: absolute;
+  
 }
 </style>
