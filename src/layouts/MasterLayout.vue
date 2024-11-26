@@ -2,13 +2,13 @@
     <v-card>
         <v-layout>
             <v-navigation-drawer v-if="!isCamposGeneralesView" v-model="drawer" :rail="rail" permanent
-                @click="rail = false" color="yellow-darken-1" class="border-0">
+                @click="rail = false" color="blue-darken-1" class="border-0">
                 <div class="p-2 py-7 flex items-center justify-center gap-2">
                     <div>
                         <div class="p-1 pt-4 flex items-center justify-center">
                             <img :src="logoEdriver" class="w-[6rem] bg-orange-100 rounded-md" />
                         </div>
-                        <p v-if="!rail" class="font-bold text-2xl text-center w-full">IluminaTech <span class="mdi mdi-hammer-wrench"></span> </p>
+                        <p v-if="!rail" class="font-bold text-2xl text-center w-full">eBeacons</p>
                     </div>
                 </div>
                 <v-list>
@@ -17,7 +17,8 @@
                             <v-list-item @click="selectItem(itemNavegation.to)" :prepend-icon="itemNavegation.icon"
                                 :title="itemNavegation.title" :value="itemNavegation.value"
                                 :class="{ 'selected-item-orange': selectedItem === itemNavegation.to }"></v-list-item>
-                            <v-tooltip activator="parent" location="end" v-if="rail">{{ itemNavegation.title }}</v-tooltip>
+                            <v-tooltip activator="parent" location="end" v-if="rail">{{ itemNavegation.title
+                                }}</v-tooltip>
                         </router-link>
                         <v-list-group v-else :value="itemNavegation.value" fluid>
                             <template v-slot:activator="{ props }">
@@ -25,11 +26,11 @@
                                     :title="itemNavegation.title" color="red"></v-list-item>
                             </template>
                             <div
-                                :class="{ 'my-2 border-l-4 border-yellow-500 ml-3': !rail, 'my-2 border-l-4 border-yellow-700': rail }">
+                                :class="{ 'my-2 border-l-4 border-blue-500 ml-3': !rail, 'my-2 border-l-4 border-blue-700': rail }">
                                 <router-link :to="item.to" v-for="item in itemNavegation.children" :key="item.value"
                                     class="rounded-md">
                                     <v-list-item @click="selectItem(item.to)" :prepend-icon="item.icon"
-                                        :title="item.title" :value="item.value" active-class="yellow-darken-3 rounded-md"
+                                        :title="item.title" :value="item.value" active-class="blue-darken-3 rounded-md"
                                         :class="{ 'selected-item-orange': selectedItem === item.to }"></v-list-item>
                                 </router-link>
                             </div>
@@ -95,14 +96,150 @@ export default {
         const dialogLoader = ref(false);
 
         const ItemsNavegation = ref([
+
+            // MANTENIMIENTOS PARA USUARIO SUPER_MASTER
             {
-                icon: "mdi mdi-toolbox",
-                title: "Productos",
-                value: "products",
-                to: "/products",
+                icon: "mdi-tools",
+                title: "Mantenimiento",
+                value: "maintenanceMaster",
+                to: "/maintenanceMaster",
+                children: [
+                    {
+                        icon: "mdi-office-building",
+                        title: "Compañías",
+                        value: "companies",
+                        to: "/companies",
+                        children: []
+                    },
+                ]
+            },
+            // MANTENIMIENTOS PARA USUARIO COMPANY_MASTER
+            {
+                icon: "mdi-wrench",
+                title: "Mantenimiento",
+                value: "maintenanceCompany",
+                to: "/maintenanceCompany",
+                children: [
+                    {
+                        icon: "mdi-account-multiple",
+                        title: "Clientes",
+                        value: "customers",
+                        to: "/customers",
+                        children: []
+                    },
+                ]
+            },
+
+            {
+                icon: "mdi-view-dashboard",
+                title: "Tablero",
+                value: "dashboard",
+                to: "/dashboard",
                 children: []
-            }     
+            },
+            {
+                icon: "mdi-monitor",
+                title: "Monitoreo",
+                value: "monitoring",
+                to: "/monitoring",
+                children: []
+            },
+            {
+                icon: "mdi-wrench",
+                title: "Mantenimientos",
+                value: "maintenance",
+                to: "/maintenance",
+                children: [
+                    {
+                        icon: "mdi-view-grid",
+                        title: "Diseño",
+                        value: "layout",
+                        to: "/layout",
+                        children: []
+                    },
+                    {
+                        icon: "mdi-map-marker",
+                        title: "Área",
+                        value: "area",
+                        to: "/area",
+                        children: []
+                    },
+                    {
+                        icon: "mdi-access-point",
+                        title: "Antenas",
+                        value: "antennas",
+                        to: "/antennas",
+                        children: []
+                    },
+                    {
+                        icon: "mdi-tag",
+                        title: "Etiquetas",
+                        value: "tags",
+                        to: "/tags",
+                        children: []
+                    },
+                    {
+                        icon: "mdi-account",
+                        title: "Operadores",
+                        value: "operators",
+                        to: "/operators",
+                        children: []
+                    },
+                ]
+            },
+            {
+                icon: "mdi-account-group",
+                title: "Grupos",
+                value: "groups",
+                to: "/groups",
+                children: [
+                    {
+                        icon: "mdi-tag-multiple",
+                        title: "Grupo de Etiquetas",
+                        value: "gptags",
+                        to: "/gptags",
+                        children: []
+                    },
+                    {
+                        icon: "mdi-map-marker-multiple",
+                        title: "Grupo de Áreas",
+                        value: "gpareas",
+                        to: "/gpareas",
+                        children: []
+                    },
+                ]
+            },
+            {
+                icon: "mdi-shape",
+                title: "Categorías",
+                value: "categories",
+                to: "/categorias",
+                children: [
+                    {
+                        icon: "mdi-tag-outline",
+                        title: "Categorías de Etiquetas",
+                        value: "catTags",
+                        to: "/catTags",
+                        children: []
+                    },
+                    {
+                        icon: "mdi-access-point-network",
+                        title: "Categorías de Antenas",
+                        value: "catAntennas",
+                        to: "/catAntennas",
+                        children: []
+                    },
+                ]
+            },
+            {
+                icon: "mdi-file-chart",
+                title: "Reportes",
+                value: "reports",
+                to: "/reports",
+                children: []
+            },
         ]);
+
 
         const router = useRoute();
 
@@ -119,20 +256,33 @@ export default {
         });
 
         const rols = computed(() => {
-            if (store.state.role === 'administrator') {
-                return 'Usuario';
-            } else if (store.state.role === 'doctor') {
-                return 'Doctor';
+            if (store.state.role === 'CUSTOMER_MASTER') {
+                return 'Cliente';
+            } else if (store.state.role === 'COMPANY_MASTER') {
+                return 'Compañia';
+            } else if (store.state.role === 'SUPER_MASTER') {
+                return 'Master'
             }
             return '';
         });
 
         const filteredItems = computed(() => {
-            if (store.state.role === 'administrator') {
-                return ItemsNavegation.value.filter(item => item.value === 'products' || item.value==='category');
-            } else if (store.state.role === 'vendedor') {
-                return ItemsNavegation.value.filter(item => item.value === 'products');
-            } else {
+            if (store.state.role === 'CUSTOMER_MASTER') {
+                return ItemsNavegation.value.filter(item =>
+                    item.value === 'dashboard' ||
+                    item.value === 'monitoring' ||
+                    item.value === 'maintenance' ||
+                    item.value === 'groups' ||
+                    item.value === 'categories' ||
+                    item.value === 'reports'
+                );
+
+            } else if (store.state.role === 'COMPANY_MASTER') {
+                return ItemsNavegation.value.filter(item => item.value === 'maintenanceCompany');
+            } else if (store.state.role === 'SUPER_MASTER') {
+                return ItemsNavegation.value.filter(item => item.value === 'maintenanceMaster')
+            }
+            else {
                 return [];
             }
         });
@@ -164,9 +314,12 @@ export default {
 
 <style>
 .selected-item-orange {
-    background-color: #FF9800 !important; /* Fondo anaranjado */
-    color: white !important; /* Texto en blanco para buen contraste */
-    border-right: 4px solid #FF5722; /* Borde derecho más oscuro para mayor contraste */
+    background-color: #FF9800 !important;
+    /* Fondo anaranjado */
+    color: white !important;
+    /* Texto en blanco para buen contraste */
+    border-right: 4px solid #FF5722;
+    /* Borde derecho más oscuro para mayor contraste */
 }
 
 .v-list-item-title {
