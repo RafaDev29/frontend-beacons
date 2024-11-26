@@ -1,0 +1,59 @@
+{
+    "id": 1,
+    "_id": "66fec0fcb11d685264689552",
+    "name": "AULA A",
+    "layout": {
+        "_id": "66fec0d4b11d685264689544",
+        "name": "Pabellón J"
+    },
+    "areaPoints": [
+        {
+            "_id": "66fec117b11d685264689561",
+            "mac": "C43CB0EE7B45",
+            "areaId": "66fec0fcb11d685264689552"
+        },
+        {
+            "_id": "67365b0d0a7647caed270879",
+            "mac": "PRUEBITA_2222",
+            "areaId": "66fec0fcb11d685264689552",
+            "typeId": "67365ae20a7647caed27086d"
+        },
+        {
+            "_id": "673cec66e004d9dad829fd67",
+            "mac": "sdfsdf",
+            "areaId": "66fec0fcb11d685264689552",
+            "typeId": "67365ae20a7647caed27086d"
+        }
+    ]
+}
+
+
+
+{
+    "id": 1,
+    "_id": "66fec0fcb11d685264689552",
+    "name": "AULA AB",
+    "layout": {
+        "_id": "66fec0d4b11d685264689544",
+        "name": "Pabellón J"
+    },
+    "areaPoints": [
+        {
+            "_id": "66fec117b11d685264689561",
+            "mac": "C43CB0EE7B45",
+            "areaId": "66fec0fcb11d685264689552"
+        },
+        {
+            "_id": "67365b0d0a7647caed270879",
+            "mac": "PRUEBITA_2222",
+            "areaId": "66fec0fcb11d685264689552",
+            "typeId": "67365ae20a7647caed27086d"
+        },
+        {
+            "_id": "673cec66e004d9dad829fd67",
+            "mac": "sdfsdf",
+            "areaId": "66fec0fcb11d685264689552",
+            "typeId": "67365ae20a7647caed27086d"
+        }
+    ]
+}

@@ -12,11 +12,21 @@ const router = createRouter({
             path: "/",
             component: () => import("@/layouts/MasterLayout.vue"),
             children: [
-                // {
-                //     name: "products",
-                //     path: "/products",
-                //     component: () => import("@/views/ProductView.vue"),
-                // },
+                {
+                    name: "layout",
+                    path: "/layout",
+                    component: () => import("@/views/LayoutView.vue"),
+                },
+                {
+                    name: "area",
+                    path: "/area",
+                    component: () => import("@/views/AreaView.vue"),
+                },
+                {
+                    name: "antennas",
+                    path: "/antennas",
+                    component: () => import("@/views/AntennasView.vue"),
+                },
             
        
             ]
@@ -45,22 +55,26 @@ router.beforeEach((to, from, next) => {
       
         next({ name: 'login' });
     } else if (to.name === 'login' && store.state.isAuthenticated) {
-        // Si el usuario ya está autenticado y trata de acceder al login, redirigir según su rol
-        if (store.state.role === "administrador") {
-            next({ name: 'products' });
+       
+        if (store.state.role === "CUSTOMER_MASTER") {
+            next({ name: 'layout' });
            
-        } else if (store.state.role === "administrator") {
+        } else if (store.state.role === "COMPANY_MASTER") {
 
-            next({ name: '' });
+            next();
+        }else if(store.state.role === "SUPER_MASTER"){
+            next();
         } else {
             next();
         }
     } else if (to.path === '/' && store.state.isAuthenticated) {
         // Si el usuario está autenticado y accede a la raíz, redirigir según su rol
-        if (store.state.role === "administrator") {
-            next({ name: 'products' });
-        } else if (store.state.role === "administratora") {
-            next({ name: 'products' });
+        if (store.state.role === "CUSTOMER_MASTER") {
+            next({ name: 'layout' });
+        } else if (store.state.role === "COMPANY_MASTER") {
+            next({ name: 'layout' });
+        } else if (store.state.role === "SUPER_MASTER") {
+            next();
         } else {
             next();
         }

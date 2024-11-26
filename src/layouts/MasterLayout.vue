@@ -24,7 +24,7 @@
                         <v-list-group v-else :value="itemNavegation.value" fluid>
                             <template v-slot:activator="{ props }">
                                 <v-list-item v-bind="props" :prepend-icon="itemNavegation.icon"
-                                    :title="itemNavegation.title" color="red"></v-list-item>
+                                    :title="itemNavegation.title" color="orange"></v-list-item>
                             </template>
                             <div
                                 :class="{ 'my-2 border-l-4 border-blue-500 ml-3': !rail, 'my-2 border-l-4 border-blue-700': rail }">
@@ -95,8 +95,6 @@ export default {
         const nombre_usuario = ref('');
         const selectedItem = ref(null);
         const dialogLoader = ref(false);
-        const xd = store.getters.getItemName('Items Moviles')
-        console.log(xd,"<==========================")
         const ItemsNavegation = ref([
 
             // MANTENIMIENTOS PARA USUARIO SUPER_MASTER
@@ -327,7 +325,7 @@ export default {
     /* Fondo anaranjado */
     color: white !important;
     /* Texto en blanco para buen contraste */
-    border-right: 4px solid #FF5722;
+    border-right: 4px solid #ffa722;
     /* Borde derecho más oscuro para mayor contraste */
 }
 
