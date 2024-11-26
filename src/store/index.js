@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import { listarCuentasApi } from "@/api/MenuService";
 
 const localStorageKey = 'DJsdfg-2352LLDSF-dfglñdskfgiu38r_[22334ews34>YUVASZghsvdV';
 
@@ -9,12 +8,14 @@ export default createStore({
         role: '',
         username: '',
         token: '',
-        menuData: {} // Aquí se almacenarán los datos como { itemKey: { itemName, status } }
+        menuData: {} // Aquí se almacenarán los datos del menú
     },
     getters: {
+        // Obtiene el nombre dinámico basado en `itemKey`
         getItemName: (state) => (itemKey) => {
             return state.menuData[itemKey]?.itemName || ''; 
         },
+        // Verifica si un item está habilitado (`status`)
         getItemStatus: (state) => (itemKey) => {
             return state.menuData[itemKey]?.status || false; 
         }
@@ -36,20 +37,28 @@ export default createStore({
             state.role = value;
             localStorage.setItem(localStorageKey, JSON.stringify(state));
         },
+        // Inicializa el estado global desde localStorage
         initializeStateFromLocalStorage(state) {
             const storedState = localStorage.getItem(localStorageKey);
             if (storedState) {
                 Object.assign(state, JSON.parse(storedState));
             }
         },
+        // Guarda los datos del menú en el estado y `localStorage`
         setMenuData(state, data) {
-            // Convierte el array en un objeto con `itemKey` como clave
+            if (!Array.isArray(data)) {
+                console.error('setMenuData recibió un valor no válido:', data);
+                return;
+            }
+
             state.menuData = data.reduce((acc, item) => {
                 acc[item.itemKey] = { itemName: item.itemName, status: item.status };
                 return acc;
             }, {});
-            localStorage.setItem('menuData', JSON.stringify(state.menuData)); // Guarda en localStorage
+
+            localStorage.setItem('menuData', JSON.stringify(state.menuData));
         },
+        // Inicializa los datos del menú desde `localStorage`
         initializeMenuDataFromLocalStorage(state) {
             const storedMenu = localStorage.getItem('menuData');
             if (storedMenu) {
@@ -58,21 +67,13 @@ export default createStore({
         }
     },
     actions: {
+        // Inicializar el estado global desde `localStorage`
         initializeStateFromLocalStorage({ commit }) {
             commit('initializeStateFromLocalStorage');
         },
+        // Inicializar los datos del menú desde `localStorage`
         initializeMenuDataFromLocalStorage({ commit }) {
             commit('initializeMenuDataFromLocalStorage');
-        },
-        async fetchMenuData({ commit, state }) {
-            try {
-                const response = await listarCuentasApi(state.token); // Usa el token del store
-                if (response.status && response.data) {
-                    commit('setMenuData', response.data);
-                }
-            } catch (error) {
-                console.error('Error al cargar los datos del menú:', error);
-            }
         }
     }
 });

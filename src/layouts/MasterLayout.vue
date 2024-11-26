@@ -17,8 +17,9 @@
                             <v-list-item @click="selectItem(itemNavegation.to)" :prepend-icon="itemNavegation.icon"
                                 :title="itemNavegation.title" :value="itemNavegation.value"
                                 :class="{ 'selected-item-orange': selectedItem === itemNavegation.to }"></v-list-item>
-                            <v-tooltip activator="parent" location="end" v-if="rail">{{ itemNavegation.title
-                                }}</v-tooltip>
+                            <v-tooltip activator="parent" location="end" v-if="rail">
+                                {{ itemNavegation.title }}
+                            </v-tooltip>
                         </router-link>
                         <v-list-group v-else :value="itemNavegation.value" fluid>
                             <template v-slot:activator="{ props }">
@@ -94,7 +95,8 @@ export default {
         const nombre_usuario = ref('');
         const selectedItem = ref(null);
         const dialogLoader = ref(false);
-
+        const xd = store.getters.getItemName('Items Moviles')
+        console.log(xd,"<==========================")
         const ItemsNavegation = ref([
 
             // MANTENIMIENTOS PARA USUARIO SUPER_MASTER
@@ -173,7 +175,7 @@ export default {
                     },
                     {
                         icon: "mdi-tag",
-                        title: "Etiquetas",
+                        title: store.getters.getItemName('Items Moviles'),
                         value: "tags",
                         to: "/tags",
                         children: []
@@ -245,15 +247,22 @@ export default {
 
         const loadData = async () => {
             dialogLoader.value = true;
+            await store.dispatch('fetchMenuData');
             dialogLoader.value = false;
         };
 
-        onMounted(() => {
+        onMounted(async () => {
             nombre_usuario.value = store.state.username;
             handleResize();
             window.addEventListener("resize", handleResize);
             selectedItem.value = router.fullPath;
+
+            // Cargar datos del menú si no están disponibles
+            if (Object.keys(store.state.menuData).length === 0) {
+                await store.dispatch('fetchMenuData');
+            }
         });
+
 
         const rols = computed(() => {
             if (store.state.role === 'CUSTOMER_MASTER') {

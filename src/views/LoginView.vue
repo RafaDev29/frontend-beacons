@@ -17,6 +17,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import FormAuthVue from '@/components/login/FormAuth.vue';
 import { authLoginApi } from '@/api/LoginService';
+import { listarCuentasApi } from '@/api/MenuService';
 import store from '@/store';
 
 export default {
@@ -33,16 +34,29 @@ export default {
       try {
         const response = await authLoginApi(data);
         const user = response.data.data;
-        
+        const token = user.token;
 
+        // Guarda los datos del usuario en el store
         store.commit('setUsername', user.username);
-        store.commit('setToken', user.token);
+        store.commit('setToken', token);
         store.commit('setRole', user.role);
         store.commit('setIsAuthenticated', true);
 
+        // Consume el servicio para obtener los datos del menú
+        const menuResponse = await listarCuentasApi(token);
+
+        if (menuResponse.status && Array.isArray(menuResponse.data.data)) {
+          // Guarda los datos del menú en el store
+          store.commit('setMenuData', menuResponse.data.data);
+        } else {
+          console.error('La respuesta del menú no es válida:', menuResponse);
+        }
+
+        // Redirige a la página principal
         router.push('/');
       } catch (error) {
         statusError.value = true;
+
         if (error.response) {
           if (error.response.status === 401) {
             messageError.value = 'Las credenciales de usuario no son válidas';
@@ -54,8 +68,10 @@ export default {
         } else if (error.request) {
           messageError.value = 'No se recibió respuesta del servidor';
         } else {
-          messageError.value = 'Error al configurar la solicitud:', error.message;
+          messageError.value = 'Error al configurar la solicitud: ' + error.message;
         }
+
+        console.error('Error en el proceso de inicio de sesión:', error);
       }
     };
 
@@ -86,6 +102,5 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
-  
 }
 </style>
