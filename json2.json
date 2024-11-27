@@ -1,0 +1,104 @@
+{
+    "name": "sdfsdf",
+
+    "typeId": "6739fbd44f495ece4cf938cf",
+    "icon": "fa-solid fa-train",
+    "color": "#db2929",
+    "mac": "545CDS24CDESE",
+    "proxyName": "PRUEBA",
+    "proxyEmail": "PRUEBA",
+    "proxyPhone": "PRUEBA"
+}
+
+
+
+{
+    "id": 1,
+    "_id": "66fec29bb11d685264689827",
+    "mac": "D266885B602B",
+    "color": "#455A64",
+    "icon": "fa-solid fa-person",
+    "name": "MARCOS",
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "createdAt": "2024-10-03T16:13:15.514Z",
+    "__v": 0,
+    "proxyEmail": "",
+    "proxyName": "",
+    "proxyPhone": "",
+    "typeId": {
+        "_id": "6739fbf54f495ece4cf938d4",
+        "name": "Profesores"
+    }
+}
+
+
+
+{
+    "id": 2,
+    "_id": "66fec2f4b11d685264689888",
+    "mac": "C061EC3CF3FDd",
+    "color": "#2c43b5",
+    "icon": "fa-solid fa-user-tie",
+    "name": "ALEXANDERd",
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "createdAt": "2024-10-03T16:14:44.823Z",
+    "__v": 0,
+    "proxyEmail": "prueba@gmail.comd",
+    "proxyName": "pruebad",
+    "proxyPhone": "999999999d",
+    "typeId": "67450034bf5877876536dfb3"
+}
+
+
+{
+    "id": 3,
+    "_id": "6744ee29bf5877876536de89",
+    "mac": "D6BFE6DC41A3",
+    "color": "#AD1457",
+    "icon": "fa-solid fa-user-nurse",
+    "name": "noemi",
+    "proxyName": "prueba",
+    "proxyPhone": "9999999999",
+    "proxyEmail": "prueba@gmail.com",
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "typeId": {
+        "_id": "6739fbf54f495ece4cf938d4",
+        "name": "Profesores"
+    },
+    "createdAt": "2024-11-25T21:37:45.357Z",
+    "__v": 0
+}
+
+
+{
+    "id": 1,
+    "_id": "66fec29bb11d685264689827",
+    "mac": "D266885B602B",
+    "color": "#455A64",
+    "icon": "fa-solid fa-person",
+    "name": "MARCOS",
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "createdAt": "2024-10-03T16:13:15.514Z",
+    "__v": 0,
+    "proxyEmail": "prueba@gmail.com",
+    "proxyName": "dsfds",
+    "proxyPhone": "sdfdsf",
+    "typeId": "67450034bf5877876536dfb3"
+}
+
+
+{
+    "id": 1,
+    "_id": "66fec29bb11d685264689827",
+    "mac": "D266885B602B",
+    "color": "#455A64",
+    "icon": "fa-solid fa-person",
+    "name": "MARCOS",
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "createdAt": "2024-10-03T16:13:15.514Z",
+    "__v": 0,
+    "proxyEmail": "prueba@gmail.com",
+    "proxyName": "dsfds",
+    "proxyPhone": "sdfdsf",
+    "typeId": "6745f9c1a1f3c073ba365890"
+}

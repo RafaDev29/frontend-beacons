@@ -26,13 +26,10 @@
 <script>
 import { ref, onMounted } from 'vue';
 
-import { updateAreaApi } from '@/api/AreaService'
-import {  deleteAntennaApi, createAntennaApi } from '@/api/AntennaService'
-import {listTagApi} from '@/api/TagService'
 
-
+import { listTagApi, createTagApi , deleteTagApi, updateTagApi} from '@/api/TagService'
 import createForm from '@/components/tag/CreateForm.vue';
-import EditForm from '@/components/area/EditForm.vue';
+import EditForm from '@/components/tag/EditForm.vue';
 import store from '@/store';
 import DataTable from '@/components/tag/DataTable.vue';
 
@@ -72,6 +69,7 @@ export default {
         };
 
         const openEditForm = (item) => {
+          
             selectedItem.value = { ...item };
             isEditFormVisible.value = true;
         };
@@ -81,17 +79,14 @@ export default {
         };
 
         const updateItems = async (data) => {
+            console.log(data,"<================")
             openLoading();
             try {
                 const token = store.state.token
                 const id = data._id
 
-                const payload = {
-                    name: data.name,
-                    layoutId: data.layout._id,
-
-                }
-                const response = await updateAreaApi(token, payload, id);
+             
+                const response = await updateTagApi(token, data, id);
 
                 if (response) {
                     closeEditForm();
@@ -106,19 +101,15 @@ export default {
         }
 
         const submitItems = async (data) => {
+       
             try {
                 const token = store.state.token;
-                const payload = {
-                    mac: data.mac,
-                    areaId: data.areaId,
-                    typeId: data.typeId
-                };
-                await createAntennaApi(token, payload);
+                await createTagApi(token, data);
                 await fetchItems();
                 closeCreateForm();
             } catch (error) {
                 closeCreateForm();
-                console.error('error al crear area:', error);
+                console.error('error al crear etiqueta:', error);
             }
         };
 
@@ -128,7 +119,7 @@ export default {
             try {
                 const token = store.state.token
                 const id = item._id
-                const response = await deleteAntennaApi(token, id)
+                const response = await deleteTagApi(token, id)
                 if (response) {
                     closeLoading()
                 }
@@ -165,9 +156,7 @@ export default {
             closeLoading,
             isLoading,
             listAntennas,
-
             closeAntennaModal,
-
             deleteItems,
             isCreateFormVisible,
             openCreateForm,

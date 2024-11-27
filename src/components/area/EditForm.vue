@@ -19,7 +19,7 @@
                         <option value="" disabled>Seleccionar Layout</option>
                         <option v-for="layout in layouts" :key="layout._id" :value="layout._id">
                             {{ layout.name }}
-                        </option>
+                         </option>
                     </select>
 
                 </div>
