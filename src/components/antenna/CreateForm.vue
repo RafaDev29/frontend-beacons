@@ -12,7 +12,7 @@
 
                 <div class="mb-4">
                     <label for="countries" class="block text-sm font-medium text-gray-500 mb-1">
-                        Seleccionar Tipo de Antena
+                        Seleccionar Areas
                     </label>
                     <select id="countries" v-model="form.areaId"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -25,13 +25,13 @@
 
                 <div class="mb-4">
                     <label for="countries" class="block text-sm font-medium text-gray-500 mb-1">
-                        Seleccionar Area
+                        Seleccionar categoria de antenas
                     </label>
-                    <select id="countries" v-model="form.areaId"
+                    <select id="countries" v-model="form.typeId"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="" disabled selected>layouts</option>
-                        <option v-for="layout in layouts" :key="layout._id" :value="layout._id">
-                            {{ layout.name }}
+                        <option value="" disabled selected>Antenas</option>
+                        <option v-for="cantenna in cantennas" :key="cantenna._id" :value="cantenna._id">
+                            {{ cantenna.name }}
                         </option>
                     </select>
                 </div>
@@ -52,10 +52,12 @@
     </div>
 </template>
 
+
+
 <script>
 import { onMounted, ref } from 'vue';
 import { listAreasApi } from '@/api/AreaService'
-import {listCAntennaApi } from '@/api/CAntenaService'
+import { listCAntennaApi } from '@/api/CAntenaService'
 import store from '@/store';
 
 export default {
@@ -63,10 +65,12 @@ export default {
     setup(props, { emit }) {
         const item = ref(true);
         const areas = ref([])
-        const cantenna = ref([])
+        const cantennas = ref([])
         const form = ref({
             name: '',
-            areaId: ''
+            areaId: '',
+            typeId : ''
+
         });
 
         const listAreas = async () => {
@@ -84,14 +88,14 @@ export default {
         }
 
         const listCAntenna = async () => {
-            try{
-                const token = store.state.token 
+            try {
+                const token = store.state.token
                 const response = await listCAntennaApi(token);
-                response(response){
-
+                if (response) {
+                    cantennas.value = response.data.data
                 }
-            }catch(error){
-
+            } catch (error) {
+                console.log("error al listar categoria de antenas xd.")
             }
         }
         const closeDialog = () => {
@@ -104,7 +108,8 @@ export default {
         };
 
         onMounted(
-            listAreas
+            listAreas(),
+            listCAntenna()
         )
 
         return {
@@ -114,7 +119,8 @@ export default {
             submitForm,
             listAreas,
             areas,
-            listCAntenna
+            listCAntenna,
+            cantennas
         };
     }
 };

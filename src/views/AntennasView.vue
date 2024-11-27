@@ -26,8 +26,8 @@
 <script>
 import { ref, onMounted } from 'vue';
 
-import {  createAreaApi, updateAreaApi } from '@/api/AreaService'
-import { listAntennaApi , deleteAntennaApi } from '@/api/AntennaService'
+import {   updateAreaApi } from '@/api/AreaService'
+import { listAntennaApi , deleteAntennaApi , createAntennaApi} from '@/api/AntennaService'
 
 
 import createForm from '@/components/antenna/CreateForm.vue';
@@ -108,10 +108,11 @@ export default {
             try {
                 const token = store.state.token;
                 const payload = {
-                    name: data.name,
-                    layoutId: data.layoutId
+                    mac: data.mac,
+                    areaId: data.areaId,
+                    typeId: data.typeId
                 };
-                await createAreaApi(token, payload);
+                await createAntennaApi(token, payload);
                 await fetchItems();
                 closeCreateForm();
             } catch (error) {

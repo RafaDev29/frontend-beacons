@@ -27,6 +27,12 @@ const router = createRouter({
                     path: "/antennas",
                     component: () => import("@/views/AntennasView.vue"),
                 },
+
+                {
+                    name: "tags",
+                    path: "/tags",
+                    component: () => import("@/views/TagView.vue"),
+                },
             
        
             ]
