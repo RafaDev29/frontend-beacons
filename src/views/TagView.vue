@@ -31,7 +31,7 @@ import {  deleteAntennaApi, createAntennaApi } from '@/api/AntennaService'
 import {listTagApi} from '@/api/TagService'
 
 
-import createForm from '@/components/antenna/CreateForm.vue';
+import createForm from '@/components/tag/CreateForm.vue';
 import EditForm from '@/components/area/EditForm.vue';
 import store from '@/store';
 import DataTable from '@/components/tag/DataTable.vue';

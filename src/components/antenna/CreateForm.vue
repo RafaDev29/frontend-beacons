@@ -4,7 +4,7 @@
             <h2 class="text-xl font-semibold text-gray-700 mb-4 text-center">Crear Nueva Antena</h2>
             <form @submit.prevent="submitForm">
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-500 mb-1">Nombre</label>
+                    <label class="block text-sm font-medium text-gray-500 mb-1">Mac</label>
                     <input type="text" v-model="form.mac"
                         class="w-full border border-gray-300 rounded-lg py-2 px-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         required />

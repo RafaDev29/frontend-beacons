@@ -3,6 +3,8 @@ import App from './App.vue'
 import './index.css'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
 
 import router from './router';
 
