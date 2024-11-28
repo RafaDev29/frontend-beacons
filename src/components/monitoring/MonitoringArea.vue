@@ -14,6 +14,7 @@
                 v-for="beacon in area.items" 
                 :key="beacon._id" 
                 :beacon="beacon" 
+                :highlighted="highlightedBeacon === beacon._id" 
                 @click="selectBeacon(beacon)"
             />
         </div>
@@ -27,7 +28,6 @@
 
 <script>
 import MonitoringBeacon from '@/components/monitoring/MonitoringBeacon.vue';
-import {  } from 'vue';
 
 export default {
     name: 'MonitoringArea',
@@ -40,6 +40,10 @@ export default {
             type: Number,
             required: true, // Para recibir el índice del área desde el componente padre
         },
+        highlightedBeacon: {
+            type: String,
+            default: null, // ID del beacon a resaltar
+        },
     },
     components: {
         MonitoringBeacon,
@@ -47,11 +51,11 @@ export default {
     setup(props, { emit }) {
         // Colores predefinidos para las áreas
         const backgroundColors = [
-            'linear-gradient(to right, #e3f2fd, #bbdefb)', // Azul claro
-            'linear-gradient(to right, #f1f8e9, #c5e1a5)', // Verde claro
-            'linear-gradient(to right, #fff3e0, #ffcc80)', // Naranja claro
-            'linear-gradient(to right, #ede7f6, #d1c4e9)', // Púrpura claro
-            'linear-gradient(to right, #fce4ec, #f8bbd0)', // Rosa claro
+            'linear-gradient(to right, #DED93A, #EEA735)', 
+            'linear-gradient(to right, #09bdf7, #3ADEC6)', 
+            'linear-gradient(to right, #40EFEF, #34B6E5)', 
+            'linear-gradient(to right, #D0A6F4, #B06BED)', 
+            'linear-gradient(to right, #EDAE6B, #EF9B40)', 
         ];
 
         // Obtener el color de fondo según el índice

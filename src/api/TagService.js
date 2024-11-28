@@ -21,7 +21,7 @@ export function deleteTagApi(token, id) {
 
 
 export function deleteMassiveTagApi(token, payload) {
-  return axiosInstance.delete(`${baseURL}/mobiles-items/delete`, {
+  return axiosInstance.post(`${baseURL}/mobiles-items/delete`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

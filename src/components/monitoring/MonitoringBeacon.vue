@@ -2,7 +2,8 @@
     <div class="relative">
         <!-- Ícono del Beacon -->
         <div 
-            class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full shadow-inner cursor-pointer hover:bg-blue-200 transition duration-300"
+            :class="['w-12 h-12 flex items-center justify-center rounded-full shadow-inner cursor-pointer transition duration-300', 
+                     { 'bg-blue-100 hover:bg-blue-200': !highlighted, 'animate-flash': highlighted }]"
             @click="$emit('click')"
             @mouseover="showTooltip = true"
             @mouseleave="showTooltip = false"
@@ -13,7 +14,7 @@
         <!-- Tooltip -->
         <div 
             v-if="showTooltip" 
-            class="relative bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-3 py-1 bg-black text-white text-sm font-medium rounded-md "
+            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-3 py-1 bg-black text-white text-sm font-medium rounded-md"
         >
             {{ beacon.name }}
         </div>
@@ -28,6 +29,10 @@ export default {
             type: Object,
             required: true,
         },
+        highlighted: {
+            type: Boolean,
+            default: false, // Indica si este beacon debe parpadear
+        },
     },
     data() {
         return {
@@ -38,5 +43,16 @@ export default {
 </script>
 
 <style scoped>
-/* Asegura que el tooltip se posicione correctamente y sea visible */
+/* Animación de parpadeo */
+@keyframes flash {
+    0%, 100% {
+        background-color: rgba(19, 204, 84, 0); /* Sin color */
+    }
+    50% {
+        background-color: rgba(255, 60, 0, 0.791); /* Amarillo tenue */
+    }
+}
+.animate-flash {
+    animation: flash 1s ease-in-out infinite;
+}
 </style>

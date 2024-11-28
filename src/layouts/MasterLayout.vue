@@ -174,7 +174,7 @@ export default {
                     {
                         icon: "mdi-tag",
                         // title: store.getters.getItemName('Items Moviles'),
-                        title : "Etiquetas",
+                        title: "Etiquetas",
                         value: "tags",
                         to: "/tags",
                         children: []
@@ -232,6 +232,14 @@ export default {
                     },
                 ]
             },
+
+            {
+                icon: "mdi mdi-bell-alert-outline",
+                title: "Reglas de Notificaciones",
+                value: "rules",
+                to: "/rules",
+                children: []
+            },
             {
                 icon: "mdi-file-chart",
                 title: "Reportes",
@@ -282,7 +290,8 @@ export default {
                     item.value === 'maintenance' ||
                     item.value === 'groups' ||
                     item.value === 'categories' ||
-                    item.value === 'reports'
+                    item.value === 'reports' ||
+                    item.value ==='rules' 
                 );
 
             } else if (store.state.role === 'COMPANY_MASTER') {
