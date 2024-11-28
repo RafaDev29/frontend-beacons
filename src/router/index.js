@@ -65,6 +65,13 @@ const router = createRouter({
                     component: () => import("@/views/CAntennaView.vue"),
                 },
 
+                {
+                    name: "monitoring",
+                    path: "/monitoring",
+                    component: () => import("@/views/MonitoringView.vue"),
+                },
+
+
                 
 
                 
