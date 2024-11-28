@@ -152,7 +152,7 @@ export default {
                 children: [
                     {
                         icon: "mdi-view-grid",
-                        title: "Diseño",
+                        title: "Layout",
                         value: "layout",
                         to: "/layout",
                         children: []
@@ -173,7 +173,8 @@ export default {
                     },
                     {
                         icon: "mdi-tag",
-                        title: store.getters.getItemName('Items Moviles'),
+                        // title: store.getters.getItemName('Items Moviles'),
+                        title : "Etiquetas",
                         value: "tags",
                         to: "/tags",
                         children: []

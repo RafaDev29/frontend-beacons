@@ -19,6 +19,7 @@
     "jspdf-autotable": "^3.8.2",
     "roboto-fontface": "*",
     "sweetalert2": "^11.12.4",
+    "uuid": "^11.0.3",
     "vue": "^3.2.13",
     "vue-datepicker-next": "^1.0.3",
     "vue-router": "^4.0.13",

@@ -1,9 +1,26 @@
 <template>
-    <v-text-field v-model="search" label="Buscar" prepend-inner-icon="mdi-magnify" variant="outlined" hide-details
-        single-line class="mb-5 PT-3"></v-text-field>
-    <v-card flat>
-        <v-data-table :headers="headers" :items="filteredItems" :search="search">
+    <div class="d-flex align-center mb-5">
+        <v-text-field v-model="search" label="Buscar" prepend-inner-icon="mdi-magnify" variant="outlined" hide-details
+            single-line class="flex-grow-1"></v-text-field>
 
+            
+
+        <v-select v-model="selectedEvent" :items="events" label="Seleccionar Acción" variant="outlined" hide-details
+            class="flex ml-5"></v-select>
+
+        <v-btn color="primary" class="ml-3 w-[100px] h-[100px]" @click="emitEvent"
+            :disabled="!selectedEvent || selectedItems.length === 0">
+            Aplicar
+
+        </v-btn>
+
+        
+
+    </div>
+
+    <v-card flat>
+        <v-data-table :headers="headers" :items="indexedItems" :search="search" show-select v-model="selectedItems"
+            item-value="_id">
             <!-- Íconos en la columna de acciones -->
             <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small color="green" class="mr-4" @click="editItem(item)">
@@ -37,9 +54,12 @@ export default {
             required: true,
         },
     },
-    emits: ["deleteItem", "editItem"],
+    emits: ["deleteItem", "editItem", "deleteMassive", "updateMassive"],
     setup(props, { emit }) {
         const search = ref("");
+        const selectedItems = ref([]);
+        const selectedEvent = ref(null); // Evento seleccionado
+        const events = ref(["Eliminación Masiva", "Actualización Masiva"]); // Opciones de eventos
 
         const headers = ref([
             { key: "id", title: "ID" },
@@ -50,25 +70,22 @@ export default {
             { key: "actions", title: "Acciones", sortable: false },
         ]);
 
-        const filteredItems = computed(() => {
-            if (!search.value) {
-                return indexedItems.value;
-            }
-            const searchTerm = search.value.toLowerCase();
-            return indexedItems.value.filter((item) =>
-                Object.values(item).some((val) =>
-                    String(val).toLowerCase().includes(searchTerm)
-                )
-            );
-        });
-
         const indexedItems = computed(() => {
             return props.items.map((item, index) => ({
-                id: index + 1, 
-                ...item
+                id: index + 1,
+                ...item,
             }));
         });
 
+        const emitEvent = () => {
+            if (selectedEvent.value === "Eliminación Masiva") {
+                console.log("Emitir Eliminación Masiva con IDs:", selectedItems.value);
+                emit("deleteMassive", selectedItems.value);
+            } else if (selectedEvent.value === "Actualización Masiva") {
+                console.log("Emitir Actualización Masiva con IDs:", selectedItems.value);
+                emit("updateMassive", selectedItems.value);
+            }
+        };
 
         const deleteItem = (item) => {
             emit("deleteItem", item);
@@ -78,19 +95,21 @@ export default {
             emit("editItem", item);
         };
 
-
         return {
             search,
+            selectedItems,
+            selectedEvent,
+            events,
             headers,
-            filteredItems,
+            indexedItems,
+            emitEvent,
             deleteItem,
             editItem,
-          
         };
     },
 };
 </script>
 
 <style scoped>
-/* Estilos específicos para el componente de la tabla */
+/* Estilos específicos para el componente */
 </style>

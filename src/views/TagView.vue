@@ -9,9 +9,11 @@
             </button>
         </div>
 
-        <DataTable :items="items" @viewAntennas="listAntennas" @deleteItem="deleteItems" @editItem="openEditForm" />
-        <createForm v-if="isCreateFormVisible" @close="closeCreateForm" @ItemCreate="submitItems" />
+        <DataTable :items="items" @viewAntennas="listAntennas" @deleteItem="deleteItems" @editItem="openEditForm"
+            @deleteMassive="deleteMassive"  @updateMassive="handleUpdateMassive"/>
+        <createForm v-if="isCreateFormVisible" @close="closeCreateForm" @ItemCreate="submitItems"  />
         <EditForm v-if="isEditFormVisible" :item="selectedItem" @close="closeEditForm" @updateItem="updateItems" />
+        <EditCategory v-if="showUpdateModal" :ids="selectedIds" @close="showUpdateModal = false" @confirmUpdate="UpdateMassive" />
     </div>
 
     <!-- Loading Overlay -->
@@ -27,16 +29,17 @@
 import { ref, onMounted } from 'vue';
 
 
-import { listTagApi, createTagApi , deleteTagApi, updateTagApi} from '@/api/TagService'
+import { listTagApi, createTagApi, deleteTagApi, updateTagApi, deleteMassiveTagApi, updateMassiveTagApi } from '@/api/TagService'
 import createForm from '@/components/tag/CreateForm.vue';
 import EditForm from '@/components/tag/EditForm.vue';
 import store from '@/store';
 import DataTable from '@/components/tag/DataTable.vue';
+import EditCategory from '@/components/tag/EditCategory.vue'
 
 
 
 export default {
-    components: { DataTable, createForm, EditForm },
+    components: { DataTable, createForm, EditForm, EditCategory },
     setup() {
         const items = ref([]);
         const selectedAntennas = ref(null)
@@ -48,7 +51,8 @@ export default {
         const openCreateForm = () => {
             isCreateFormVisible.value = true;
         };
-
+        const showUpdateModal = ref(false); 
+        const selectedIds = ref([]);
         const closeCreateForm = () => {
             isCreateFormVisible.value = false;
         };
@@ -69,7 +73,7 @@ export default {
         };
 
         const openEditForm = (item) => {
-          
+
             selectedItem.value = { ...item };
             isEditFormVisible.value = true;
         };
@@ -78,14 +82,42 @@ export default {
             isEditFormVisible.value = false;
         };
 
+       
+
+        const handleUpdateMassive = (ids) => {
+            selectedIds.value = ids; 
+            showUpdateModal.value = true; 
+        };
+
+        const UpdateMassive  = async (data)=>{
+            openLoading();
+            try{
+                const token = store.state.token
+                const response= await updateMassiveTagApi(token, data);
+                if(response){
+                    console.log("Actualización exitosa")
+                    closeLoading();
+                }
+                await fetchItems();
+            }catch{
+                closeLoading();
+                console.error("no se pudo actualizar la categoria de etiquetas")
+            }
+
+        }
+
+    
+
+
+
         const updateItems = async (data) => {
-            console.log(data,"<================")
+
             openLoading();
             try {
                 const token = store.state.token
                 const id = data._id
 
-             
+
                 const response = await updateTagApi(token, data, id);
 
                 if (response) {
@@ -101,10 +133,10 @@ export default {
         }
 
         const submitItems = async (data) => {
-       
+            const array = [data]
             try {
                 const token = store.state.token;
-                await createTagApi(token, data);
+                await createTagApi(token, array);
                 await fetchItems();
                 closeCreateForm();
             } catch (error) {
@@ -126,7 +158,23 @@ export default {
                 await fetchItems();
             } catch (error) {
                 closeLoading();
-                console.error('Error al obtener los layout:', error);
+                console.error('Error al elimianr las etiquetas:', error);
+            }
+        }
+
+        const deleteMassive = async (items) => {
+            try {
+                const payload = { ids: items }
+
+                const token = store.state.token
+                const response = await deleteMassiveTagApi(token, payload);
+                if (response) {
+                    closeLoading()
+                }
+                await fetchItems();
+            } catch (error) {
+                closeLoading();
+                console.error('Error al eliminar las etiquetas:', error);
             }
         }
 
@@ -168,7 +216,12 @@ export default {
             isEditFormVisible,
             selectedItem,
             isAntennasModalVisible,
-            selectedAntennas
+            selectedAntennas,
+            deleteMassive,
+            showUpdateModal,
+            selectedIds,
+            handleUpdateMassive,
+            UpdateMassive
         };
     },
 };

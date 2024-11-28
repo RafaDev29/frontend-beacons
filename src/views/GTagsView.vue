@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-between items-center">
-            <h1 class="font-bold lg:text-2xl text-xl text-gray-500 mb-5"> Layout</h1>
+            <h1 class="font-bold lg:text-2xl text-xl text-gray-500 mb-5"> Grupo de Etiquetas</h1>
             <button
                 class="flex items-center justify-center bg-[#318bf1] text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-500 shadow-md"
                 @click="openCreateForm">
@@ -9,9 +9,11 @@
             </button>
         </div>
 
-        <formTable :items="items" @ViewAreas="listAreas" @deleteItem="deleteItems" @editItem="openEditForm" />
-        
-      
+        <DataTable :items="items" @viewAntennas="listAntennas" @deleteItem="deleteItems" @editItem="openEditForm" />
+        <AntennasModal v-if="isAntennasModalVisible" :antennas="selectedAntennas" @close="closeAntennaModal"
+            :isVisible="isAntennasModalVisible" />
+
+
         <createForm v-if="isCreateFormVisible" @close="closeCreateForm" @ItemCreate="submitItems" />
         <EditForm v-if="isEditFormVisible" :item="selectedItem" @close="closeEditForm" @updateItem="updateItems" />
     </div>
@@ -28,22 +30,26 @@
 <script>
 import { ref, onMounted } from 'vue';
 
-import {listOperatorApi, deleteOperatorApi, createOperatorApi, updateOperatorApi} from '@/api/OperatorService'
-import formTable from '@/components/operator/DataTable.vue';
 
-import createForm from '@/components/operator/CreateForm.vue';
-import EditForm from '@/components/operator/EditForm.vue';
+
+import {listGTagsApi, deleteGTagsApi, updateGTagsApi, createGTagsApi} from '@/api/GTagService'
+
+import AntennasModal from '@/components/area/ViewAntenas.vue';
+import createForm from '@/components/area/CreateForm.vue';
+import EditForm from '@/components/area/EditForm.vue';
 import store from '@/store';
+import DataTable from '@/components/gtags/DataTable.vue';
+
 
 
 export default {
-    components: { formTable, createForm, EditForm },
+    components: { DataTable, AntennasModal, createForm, EditForm },
     setup() {
         const items = ref([]);
-        const selectedAreas = ref(null)
+        const selectedAntennas = ref(null)
         const selectedItem = ref(null)
         const isLoading = ref(false);
-        const isAreasModalVisible = ref(false);
+        const isAntennasModalVisible = ref(false);
         const isCreateFormVisible = ref(false);
         const isEditFormVisible = ref(false);
         const openCreateForm = () => {
@@ -59,14 +65,14 @@ export default {
         const closeLoading = () => {
             isLoading.value = false;
         }
-        const listAreas = (data) => {
+        const listAntennas = (data) => {
 
-            selectedAreas.value = data;
-            isAreasModalVisible.value = true;
+            selectedAntennas.value = data;
+            isAntennasModalVisible.value = true;
         };
-        const closeAreasModal = () => {
-            isAreasModalVisible.value = false;
-            selectedAreas.value = null;
+        const closeAntennaModal = () => {
+            isAntennasModalVisible.value = false;
+            selectedAntennas.value = null;
         };
 
         const openEditForm = (item) => {
@@ -83,32 +89,39 @@ export default {
             try {
                 const token = store.state.token
                 const id = data._id
+          
                 const payload = {
-                    name: data.name
+                    name: data.name,
+                    layoutId : data.layout._id,
+
                 }
-                const response = await updateOperatorApi(token, payload, id);
-               
-                if (response){
+                const response = await updateGTagsApi(token, payload, id);
+
+                if (response) {
                     closeEditForm();
                     closeLoading();
-                 
+
                 }
                 await fetchItems();
             } catch (error) {
                 closeLoading()
-          
+
             }
         }
 
         const submitItems = async (data) => {
             try {
                 const token = store.state.token;
-                
-                await createOperatorApi(token, data);
+                const payload = {
+                    name: data.name,
+                    layoutId: data.layoutId
+                };
+                await createGTagsApi(token, payload);
                 await fetchItems();
                 closeCreateForm();
             } catch (error) {
-                console.error('error al crear operador:', error);
+                closeCreateForm();
+                console.error('error al crear area:', error);
             }
         };
 
@@ -118,7 +131,7 @@ export default {
             try {
                 const token = store.state.token
                 const id = item._id
-                const response = await deleteOperatorApi(token, id)
+                const response = await deleteGTagsApi(token, id)
                 if (response) {
                     closeLoading()
                 }
@@ -133,7 +146,7 @@ export default {
             openLoading();
             try {
                 const token = store.state.token;
-                const response = await listOperatorApi(token);
+                const response = await listGTagsApi(token);
                 items.value = response.data.data;
                 if (response) {
                     closeLoading()
@@ -154,10 +167,10 @@ export default {
             openLoading,
             closeLoading,
             isLoading,
-            listAreas,
-            closeAreasModal,
-            selectedAreas,
-            isAreasModalVisible,
+            listAntennas,
+
+            closeAntennaModal,
+
             deleteItems,
             isCreateFormVisible,
             openCreateForm,
@@ -167,7 +180,9 @@ export default {
             openEditForm,
             closeEditForm,
             isEditFormVisible,
-            selectedItem
+            selectedItem,
+            isAntennasModalVisible,
+            selectedAntennas
         };
     },
 };

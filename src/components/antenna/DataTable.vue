@@ -3,7 +3,7 @@
         single-line class="mb-5 PT-3"></v-text-field>
     <v-card flat>
         <v-data-table :headers="headers" :items="filteredItems" :search="search">
-         
+
 
             <!-- Íconos en la columna de acciones -->
             <template v-slot:[`item.actions`]="{ item }">
@@ -54,7 +54,7 @@ export default {
 
         const indexedItems = computed(() => {
             return props.items.map((item, index) => ({
-                id: index + 1, 
+                id: index + 1,
                 ...item
             }));
         });
@@ -75,7 +75,7 @@ export default {
             filteredItems,
             deleteItem,
             editItem,
-          
+
         };
     },
 };

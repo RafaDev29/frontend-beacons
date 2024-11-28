@@ -20,6 +20,17 @@ export function deleteTagApi(token, id) {
 }
 
 
+export function deleteMassiveTagApi(token, payload) {
+  return axiosInstance.delete(`${baseURL}/mobiles-items/delete`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: payload
+  });
+}
+
+
+
 export function createTagApi(token, payload) {
   return axiosInstance.post(`${baseURL}/mobiles-items`,payload,  {
     headers: {
@@ -31,6 +42,15 @@ export function createTagApi(token, payload) {
 
 export function updateTagApi(token, payload, id) {
   return axiosInstance.patch(`${baseURL}/mobiles-items/${id}`,payload,  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+
+export function updateMassiveTagApi(token, payload) {
+  return axiosInstance.post(`${baseURL}/mobiles-items/updatetype`,payload,  {
     headers: {
       Authorization: `Bearer ${token}`,
     },

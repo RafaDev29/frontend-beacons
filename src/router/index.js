@@ -33,6 +33,21 @@ const router = createRouter({
                     path: "/tags",
                     component: () => import("@/views/TagView.vue"),
                 },
+
+                {
+                    name: "operators",
+                    path: "/operators",
+                    component: () => import("@/views/OperatorView.vue"),
+                },
+
+                {
+                    name: "gptags",
+                    path: "/gptags",
+                    component: () => import("@/views/GTagsView.vue"),
+                },
+
+
+                
             
        
             ]

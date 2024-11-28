@@ -109,10 +109,9 @@ export default {
         const item = ref(true);
         const isDropdownOpen = ref(false);
 
-        // Lista de categorías
+       
         const cantennas = ref([]);
 
-        // Formulario inicial
         const form = ref({
             name: "",
             typeId: "",
