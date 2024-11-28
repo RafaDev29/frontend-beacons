@@ -101,7 +101,7 @@
 
 <script>
 import { ref, watch, onMounted } from "vue";
-import { listTagApi } from "@/api/TagService";
+import { listAreasApi } from "@/api/AreaService";
 import store from "@/store";
 
 export default {
@@ -115,7 +115,7 @@ export default {
     setup(props, { emit }) {
         const editedItem = ref({ ...props.item });
         const availableTags = ref([]); // Etiquetas disponibles
-        const selectedTags = ref([...props.item.mobilesItems]); // Inicializar con las etiquetas seleccionadas
+        const selectedTags = ref([...props.item.areas]); // Inicializar con las etiquetas seleccionadas
         let draggedItem = null; // Etiqueta arrastrada
 
         // Sincronizar cambios cuando cambien las props
@@ -123,7 +123,7 @@ export default {
             () => props.item,
             (newItem) => {
                 editedItem.value = { ...newItem };
-                selectedTags.value = [...newItem.mobilesItems];
+                selectedTags.value = [...newItem.areas];
             }
         );
 
@@ -131,7 +131,7 @@ export default {
         const listLayout = async () => {
             try {
                 const token = store.state.token;
-                const response = await listTagApi(token);
+                const response = await listAreasApi(token);
                 // Filtrar etiquetas que ya están seleccionadas
                 availableTags.value = response.data.data.filter(
                     (tag) => !selectedTags.value.some((selected) => selected._id === tag._id)
@@ -184,7 +184,7 @@ export default {
         const submitUpdate = () => {
             const payload = {
                 ...editedItem.value,
-                mobilesItems: selectedTags.value,
+                areas: selectedTags.value,
             };
             emit("updateItem", payload);
         };
@@ -207,7 +207,5 @@ export default {
 </script>
 
 <style scoped>
-.min-h-[300px] {
-    min-height: 300px;
-}
+
 </style>

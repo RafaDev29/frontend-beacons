@@ -6,7 +6,7 @@
       <!-- Modificar cómo se renderiza la columna Paradas -->
       <template v-slot:[`item.areas`]="{ item }">
         <!-- Ícono para ver Paradas -->
-        <v-icon small color="blue" @click="viewAntennas(item.mobilesItems)">
+        <v-icon small color="blue" @click="viewAntennas(item.areas)">
           mdi-eye
         </v-icon>
       </template>
@@ -42,7 +42,7 @@ export default {
     const headers = ref([
       { key: "id", title: "ID" },
       { key: "name", title: "Nombre" },
-      { key: "areas", title: "Etiquetas" },
+      { key: "areas", title: "Áreas" },
       { key: "actions", title: "Acciones", sortable: false },
     ]);
 

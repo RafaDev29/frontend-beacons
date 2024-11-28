@@ -101,7 +101,7 @@
 
 <script>
 import { onMounted, ref } from 'vue';
-import { listTagApi } from '@/api/TagService';
+import { listAreasApi } from '@/api/AreaService';
 import store from '@/store';
 
 export default {
@@ -120,7 +120,7 @@ export default {
         // Listar etiquetas
         const listTags = async () => {
             const token = store.state.token;
-            const response = await listTagApi(token);
+            const response = await listAreasApi(token);
             availableTags.value = response.data.data;
         };
 
@@ -173,9 +173,9 @@ export default {
         const submitForm = async () => {
             const payload = {
                 name: form.value.name,
-                mobilesItems: selectedTags.value.map(tag => tag._id), // Solo los IDs seleccionados
+                areas: selectedTags.value.map(tag => tag._id), // Solo los IDs seleccionados
             };
-            console.log('Payload emitido:', payload);
+        
             emit('ItemCreate', payload);
         };
 
@@ -199,7 +199,5 @@ export default {
 </script>
 
 <style scoped>
-.min-h-[300px] {
-    min-height: 300px;
-}
+
 </style>

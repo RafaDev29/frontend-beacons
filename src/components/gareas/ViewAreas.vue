@@ -6,8 +6,8 @@
             <!-- Encabezado -->
             <div class="flex justify-between items-center p-2 border-b bg-blue-500 text-white rounded-t-lg">
                 <h1 class="text-xl   flex items-center">
-                    <i class="mdi mdi-tag-multiple text-white text-3xl ml-2"></i>
-                    Etiquetas
+                    <i class="mdi mdi-map-marker-multiple text-white text-3xl ml-2"></i>
+                    Areas
                 </h1>
 
             </div>
@@ -18,7 +18,7 @@
                     <li v-for="(antenna, index) in antennas" :key="index" class="py-4 flex items-center space-x-4">
                         <!-- Icono de ubicación -->
                         <div class="flex-1">
-                            <p class="font-semibold text-gray-800">Mac: {{antenna.mac }} </p>
+                  
                             <p class="font-semibold text-gray-800">Nombre: {{antenna.name }} </p>
                         </div>
                         <!-- Icono de acción adicional -->

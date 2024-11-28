@@ -32,13 +32,13 @@ import { ref, onMounted } from 'vue';
 
 
 
-import { listGTagsApi, deleteGTagsApi, updateGTagsApi, createGTagsApi } from '@/api/GTagService'
+import { listGAreasApi, createGAreasApi, updateGAreasApi, deleteGAreasApi } from '@/api/GAreaService'
 
-import AntennasModal from '@/components/gtags/ViewTags.vue';
-import createForm from '@/components/gtags/CreateForm.vue';
-import EditForm from '@/components/gtags/EditForm.vue';
+import AntennasModal from '@/components/gareas/ViewAreas.vue';
+import createForm from '@/components/gareas/CreateForm.vue';
+import EditForm from '@/components/gareas/EditForm.vue';
 import store from '@/store';
-import DataTable from '@/components/gtags/DataTable.vue';
+import DataTable from '@/components/gareas/DataTable.vue';
 
 
 
@@ -91,12 +91,12 @@ export default {
                 const token = store.state.token;
                 const id = data._id;
 
-                // Construcción del payload
+           
                 const payload = {
                     name: data.name,
-                    mobilesItems: data.mobilesItems.map((item) => item._id), // Extrae el campo `mac` de cada objeto
+                    areas: data.areas.map((item) => item._id),
                 };
-                const response = await updateGTagsApi(token, payload, id);
+                const response = await updateGAreasApi(token, payload, id);
                 if (response) {
                     closeEditForm(); 
                     closeLoading();  
@@ -112,7 +112,7 @@ export default {
             try {
                 const token = store.state.token;
 
-                await createGTagsApi(token, data);
+                await createGAreasApi(token, data);
                 await fetchItems();
                 closeCreateForm();
             } catch (error) {
@@ -127,7 +127,7 @@ export default {
             try {
                 const token = store.state.token
                 const id = item._id
-                const response = await deleteGTagsApi(token, id)
+                const response = await deleteGAreasApi(token, id)
                 if (response) {
                     closeLoading()
                 }
@@ -142,7 +142,7 @@ export default {
             openLoading();
             try {
                 const token = store.state.token;
-                const response = await listGTagsApi(token);
+                const response = await listGAreasApi(token);
                 items.value = response.data.data;
                 if (response) {
                     closeLoading()
