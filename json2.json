@@ -121,3 +121,51 @@
     ],
     "typeId": "6738d1bd4f495ece4cf93572"
 }
+
+
+
+{
+    "id": 1,
+    "_id": "6745fda6a1f3c073ba365902",
+    "name": "grupo",
+    "mobilesItems": [
+        {
+            "name": "demo",
+            "mac": "D266885B602B",
+            "_id": "67478db1276389d8aaa2a4a3"
+        }
+    ],
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "__v": 0
+}
+
+
+
+{
+    "id": 2,
+    "_id": "6747dda8b6729aecbe46e25a",
+    "name": "grupo",
+    "mobilesItems": [
+        {
+            "name": "noemi",
+            "mac": "D6BFE6DC41A3",
+            "_id": "6744ee29bf5877876536de89"
+        },
+        {
+            "name": "demo",
+            "mac": "D266885B602B",
+            "_id": "67478db1276389d8aaa2a4a3"
+        }
+    ],
+    "customerId": "6691a4fb3f5a555e0b38c41b",
+    "__v": 0
+}
+
+
+{
+    "name": "grupoo",
+    "mobilesItems": [
+        "D266885B602B",
+        "D6BFE6DC41A3"
+    ]
+}

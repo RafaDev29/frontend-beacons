@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-between items-center">
-            <h1 class="font-bold lg:text-2xl text-xl text-gray-500 mb-5"> Grupo de Etiquetas</h1>
+            <h1 class="font-bold lg:text-2xl text-xl text-gray-500 mb-5"> Grupo de Áreas</h1>
             <button
                 class="flex items-center justify-center bg-[#318bf1] text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-500 shadow-md"
                 @click="openCreateForm">

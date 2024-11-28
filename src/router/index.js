@@ -46,7 +46,15 @@ const router = createRouter({
                     component: () => import("@/views/GTagsView.vue"),
                 },
 
+                
+                {
+                    name: "gpareas",
+                    path: "/gpareas",
+                    component: () => import("@/views/GAreasView.vue"),
+                },
 
+
+                
                 
             
        
