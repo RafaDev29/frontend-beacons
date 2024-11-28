@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex justify-between items-center">
-            <h1 class="font-bold lg:text-2xl text-xl text-gray-500 mb-5"> Categoria de Etiquetas</h1>
+            <h1 class="font-bold lg:text-2xl text-xl text-gray-500 mb-5"> Categoria de Antenas</h1>
             <button
                 class="flex items-center justify-center bg-[#318bf1] text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-500 shadow-md"
                 @click="openCreateForm">
@@ -30,7 +30,7 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import { listCTagApi, createCTagApi, updateCTagApi, deleteCTagApi } from '@/api/CTagService';
+import { listCAntennaApi, deleteCAntennaApi, createCAntennaApi, updateCAntennaApi } from '@/api/CAntennaService';
 import formTable from '@/components/ctags/DataTable.vue';
 import createForm from '@/components/ctags/CreateForm.vue';
 import EditForm from '@/components/ctags/EditForm.vue';
@@ -87,7 +87,7 @@ export default {
                 const payload = {
                     name: data.name
                 }
-                const response = await updateCTagApi(token, payload, id);
+                const response = await updateCAntennaApi(token, payload, id);
                
                 if (response){
                     closeEditForm();
@@ -107,7 +107,7 @@ export default {
                 const payload = {
                     name: data.name,
                 };
-                await createCTagApi(token, payload);
+                await createCAntennaApi(token, payload);
                 await fetchItems();
                 closeCreateForm();
             } catch (error) {
@@ -121,7 +121,7 @@ export default {
             try {
                 const token = store.state.token
                 const id = item._id
-                const response = await deleteCTagApi(token, id)
+                const response = await deleteCAntennaApi(token, id)
                 if (response) {
                     closeLoading()
                 }
@@ -136,7 +136,7 @@ export default {
             openLoading();
             try {
                 const token = store.state.token;
-                const response = await listCTagApi(token);
+                const response = await listCAntennaApi(token);
                 items.value = response.data.data;
                 if (response) {
                     closeLoading()

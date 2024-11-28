@@ -57,7 +57,7 @@
 <script>
 import { onMounted, ref } from 'vue';
 import { listAreasApi } from '@/api/AreaService'
-import { listCAntennaApi } from '@/api/CAntenaService'
+import { listCAntennaApi } from '@/api/CAntennaService'
 import store from '@/store';
 
 export default {

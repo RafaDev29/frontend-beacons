@@ -53,7 +53,21 @@ const router = createRouter({
                     component: () => import("@/views/GAreasView.vue"),
                 },
 
+                {
+                    name: "catTags",
+                    path: "/catTags",
+                    component: () => import("@/views/CTagsView.vue"),
+                },
+                
+                {
+                    name: "catAntennas",
+                    path: "/catAntennas",
+                    component: () => import("@/views/CAntennaView.vue"),
+                },
 
+                
+
+                
                 
                 
             
